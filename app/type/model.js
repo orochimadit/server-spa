@@ -2,12 +2,12 @@ const mongoose = require('mongoose');
 
 const {model,Schema } =mongoose;
 
-const merkSchema = Schema({
+const typeSchema = Schema({
     name:{
         type:String,
-        minlength:[3, 'Panjang nama Merk minimal 3 karakter'],
-        maxlength:[255,'Panjang nama Merk maksimal 255 karakter'],
-        required: [true, 'Nama Merk harus diisi']
+        minlength:[3, 'Panjang Type minimal 3 karakter'],
+        maxlength:[255,'Panjang Type maksimal 255 karakter'],
+        required: [true, 'Type harus diisi']
     },
     description: {
         type: String, 
@@ -16,5 +16,5 @@ const merkSchema = Schema({
     image_url : String
 },{timestamps:true})
 
-module.exports = model('merk',merkSchema);
+module.exports = model('type',typeSchema);
 
