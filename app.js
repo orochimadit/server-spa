@@ -6,8 +6,10 @@ var logger = require('morgan');
 const cors = require('cors');
 
 const  divisionRouter = require('./app/division/router');
-const goodRouter = require('./app/goods/router');
-const merkRouter = require('./app/merk/router');
+const  goodRouter = require('./app/goods/router');
+const  merkRouter = require('./app/merk/router');
+const  typeRouter = require('./app/type/router');
+const  fundRouter = require('./app/fund/router');
 var app = express();
 
 // view engine setup
@@ -22,6 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api',divisionRouter);
 app.use('/api',goodRouter);
 app.use('/api',merkRouter);
+app.use('/api',typeRouter);
+app.use('/api',fundRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
