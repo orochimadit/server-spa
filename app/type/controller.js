@@ -9,7 +9,9 @@ async function store (req,res,next){
     let type = new Type(payload);
 
     await type.save();
-    return res.json(type);
+    return res.json({status: 'success',
+            message: 'tambah Type',
+            data:type});
     }
     catch(err){
         if(err && err.name ==='ValidationError'){
@@ -29,7 +31,9 @@ async function index(req, res, next){
     let types = await Type.find()
                             .limit(parseInt(limit))
                             .skip(parseInt(skip));
-    return res.json(types)
+    return res.json({status: 'success',
+            message: 'List Types',
+            data:types})
     }
     catch (err){
         next(err);
@@ -38,7 +42,9 @@ async function index(req, res, next){
 async function destroy (req, res, next){
     try{
         let type = await Type.findOneAndDelete({_id: req.params.id});
-        return res.json(type);
+        return res.json({status: 'success',
+                    message: 'Delete type',
+                    data:type});
     }
     catch(err){
         next(err);
@@ -50,7 +56,9 @@ async function update(req, res, next){
         let payload = req.body;
         let type = await Type.findOneAndUpdate({_id:req.params.id},payload,{new:true,runValidators:true});
         
-        return res.json(type);
+        return res.json({status: 'success',
+                message: 'Edit Type',
+                data:type});
     }catch(err){
         if(err && err.name ==='ValidationError'){
             return res.json({
