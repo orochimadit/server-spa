@@ -9,7 +9,9 @@ async function store (req,res,next){
     let good = new Good(payload);
 
     await good.save();
-    return res.json(good);
+    return res.json({status:'success',
+            message:'Simpan Barang ',
+            data:good});
     }
     catch(err){
         if(err && err.name ==='ValidationError'){
@@ -29,7 +31,9 @@ async function index(req, res, next){
     let goods = await Good.find()
                             .limit(parseInt(limit))
                             .skip(parseInt(skip));
-    return res.json(goods)
+    return res.json({status:'success',
+    message:'List Barang ',
+    data:goods})
     }
     catch (err){
         next(err);
@@ -38,7 +42,9 @@ async function index(req, res, next){
 async function destroy (req, res, next){
     try{
         let good = await Good.findOneAndDelete({_id: req.params.id});
-        return res.json(good);
+        return res.json({status:'success',
+        message:'Delete Barang ',
+        data:good});
     }
     catch(err){
         next(err);
@@ -50,7 +56,9 @@ async function update(req, res, next){
         let payload = req.body;
         let good = await Good.findOneAndUpdate({_id:req.params.id},payload,{new:true,runValidators:true});
         
-        return res.json(good);
+        return res.json({status:'success',
+        message:'Edit Barang ',
+        data:good});
     }catch(err){
         if(err && err.name ==='ValidationError'){
             return res.json({
