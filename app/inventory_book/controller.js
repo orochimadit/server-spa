@@ -1,17 +1,15 @@
-//import model divi
+//import model InventoryBook
 
-const Material = require('./model');
+const InventoryBook = require('./model');
 
 async function store (req,res,next){
     //tangkap data yg dikirim dari form oleh client sebagai variabel payload
     try{
     let payload = req.body;
-    let material = new Material(payload);
+    let inventoryBook = new InventoryBook(payload);
 
-    await material.save();
-    return res.json({status: 'success',
-    message: 'tambah Bahan',
-    data:material});
+    await inventoryBook.save();
+    return res.json(inventoryBook);
     }
     catch(err){
         if(err && err.name ==='ValidationError'){
@@ -28,12 +26,10 @@ async function store (req,res,next){
 async function index(req, res, next){
     try{
     let {limit= 10, skip=0 } = req.query;
-    let materials = await Material.find()
+    let inventoryBooks = await InventoryBook.find()
                             .limit(parseInt(limit))
                             .skip(parseInt(skip));
-    return res.json({status: 'success',
-    message: 'List bahan ',
-    data:materials})
+    return res.json(inventoryBooks)
     }
     catch (err){
         next(err);
@@ -41,10 +37,8 @@ async function index(req, res, next){
 }
 async function destroy (req, res, next){
     try{
-        let material = await Material.findOneAndDelete({_id: req.params.id});
-        return res.json({status:'success',
-        message:'Hapus bahan',
-        data:material});
+        let inventoryBook = await InventoryBook.findOneAndDelete({_id: req.params.id});
+        return res.json(inventoryBook);
     }
     catch(err){
         next(err);
@@ -54,11 +48,9 @@ async function destroy (req, res, next){
 async function update(req, res, next){
     try{
         let payload = req.body;
-        let material = await Material.findOneAndUpdate({_id:req.params.id},payload,{new:true,runValidators:true});
+        let inventoryBook = await InventoryBook.findOneAndUpdate({_id:req.params.id},payload,{new:true,runValidators:true});
         
-        return res.json({status: 'success',
-        message: 'edit success',
-        data:material});
+        return res.json(inventoryBook);
     }catch(err){
         if(err && err.name ==='ValidationError'){
             return res.json({
