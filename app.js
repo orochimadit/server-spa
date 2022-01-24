@@ -12,6 +12,7 @@ const  typeRouter = require('./app/type/router');
 const  fundRouter = require('./app/fund/router');
 const  materialRouter = require('./app/material/router');
 const  inventoryBookRouter = require('./app/inventory_book/router');
+const authRouter = require('./app/auth/router');
 var app = express();
 
 // view engine setup
@@ -30,6 +31,7 @@ app.use('/api',typeRouter);
 app.use('/api',fundRouter);
 app.use('/api',materialRouter);
 app.use('/api',inventoryBookRouter);
+app.use('/auth',authRouter)
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
