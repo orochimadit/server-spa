@@ -1,6 +1,6 @@
 const config = require('../config');
 const User = require('../user/model')
-
+const {getToken} = require ('../utils/get-token');
 async function register(req,res,next){
     try {
         //tangkap payload dari request
@@ -72,9 +72,29 @@ function me(req, res, next){
     }
     return res.json(req.user);
 }
+
+async function logout(req, res, next){
+    //dapatkan token dari request
+    let token = getToken(req);
+
+    let user = await User.findOneAndUpdate({token: {$in:[token]}},
+        {$pull:{token}},{userFindAndModify:false});
+    
+        if(!user || !token){
+            return res.json({
+                error:1,
+                message: 'No User Found'
+            })
+        }
+        return res.json({
+            error:0,
+            message:'Logout Berhasil'
+        })
+    }
 module.exports ={
     register,
     localStrategy,
     login,
-    me
+    me,
+    logout
 }
