@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const {model,Schema } =mongoose;
 const bcrypt = require('bcrypt');
 const AutoIncrement = require('mongoose-sequence')(mongoose);
-const HASH_ROUND
+const HASH_ROUND = 10;
 
 let userSchema = Schema({
     full_name:{
