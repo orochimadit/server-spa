@@ -62,8 +62,19 @@ async function login(req,res,next){
         })
     })(req, res, next)
 }
+
+function me(req, res, next){
+    if(!req.user){
+        return res.json({
+            error:1,
+            message: 'youre not login or token expired'
+        })
+    }
+    return res.json(req.user);
+}
 module.exports ={
     register,
     localStrategy,
-    login
+    login,
+    me
 }

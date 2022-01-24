@@ -9,4 +9,5 @@ const controller = require('./controller');
 passport.use(new LocalStrategy(controller.localStrategy))
 router.post('/register',multer().none(),controller.register);
 router.post('/login', multer().none(), controller.login);
+router.get('/me',controller.me)
 module.exports = router;
